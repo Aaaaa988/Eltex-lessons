@@ -7,4 +7,4 @@ gradlew*
 settings.gradle
 target
 .directory
-src/test
+test
