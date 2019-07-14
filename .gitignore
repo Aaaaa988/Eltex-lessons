@@ -5,3 +5,5 @@ build
 gradle
 gradlew*
 settings.gradle
+target
+.directory
