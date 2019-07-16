@@ -15,38 +15,16 @@ public class Server {
     public static void main(String[] args) throws IOException {
 
             try (ServerSocket s = new ServerSocket(1050, 0, InetAddress.getByName("0.0.0.0"))) {
-                Socket client = s.accept();
-                InputStream inStream = client.getInputStream();
-                OutputStream outStream = client.getOutputStream();
-                Scanner in = new Scanner(inStream);
-                PrintWriter out = new PrintWriter(outStream);
+                while(true) {
 
-                //System.out.println(in.nextLine());
-                String[] request = in.nextLine().split(" ");
-                for(String str: request){
-                    System.out.println(str);
+                    Socket client = s.accept();
+
+                    Runnable r = new Thread_Client(client);
+                    Thread t = new Thread(r);
+                    t.start();
                 }
-                String HTTP_version = request[2];
-                String Page = request[1];
-
-                String path = "src/main/resources" + Page;
-                File file = new File(path);
-                if (!file.exists() && path.contains("html")) path = "src/main/resources/404.html";
-                if (file.exists() && !path.contains("html")) path = "src/main/resources/434.html";
-                if (!file.isFile() && !path.contains("html")) path = "src/main/resources/444.html";
-
-                String htmlPage = Files.readString(Paths.get(path));
-                htmlPage = "HTTP/1.1 200 OK\n" +
-                        "Сontent-Length:" + htmlPage.length() + "\n" +
-                        "Сontent-Type:text/javascript\n" +
-                        "\n"
-                        + htmlPage;
-                //System.out.println(htmlPage);
 
 
-                System.out.println(in.nextLine());
-                out.write(htmlPage);
-                out.flush();
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             }
@@ -54,3 +32,37 @@ public class Server {
 
         }
     }
+
+
+    /*InputStream inStream = client.getInputStream();
+                    OutputStream outStream = client.getOutputStream();
+                    Scanner in = new Scanner(inStream);
+                    PrintWriter out = new PrintWriter(outStream);
+
+                    //System.out.println(in.nextLine());
+                    String[] request = in.nextLine().split(" ");
+                    for (String str : request) {
+                        System.out.println(str);
+                    }
+                    String HTTP_version = request[2];
+                    String Page = request[1];
+
+                    String path = "src/main/resources" + Page;
+                    File file = new File(path);
+                    if (!file.exists() && path.contains("html")) path = "src/main/resources/404.html";
+                    if (file.exists() && !path.contains("html")) path = "src/main/resources/434.html";
+                    if (!file.isFile() && !path.contains("html")) path = "src/main/resources/444.html";
+
+                    String htmlPage = Files.readString(Paths.get(path));
+                    htmlPage = HTTP_version + " 200 OK\n" +
+                            "Сontent-Length:" + htmlPage.length() + "\n" +
+                            "Сontent-Type:text/html\n" +
+                            "\n"
+                            + htmlPage;
+
+
+                    //System.out.println(in.nextLine());
+                    out.write(htmlPage);
+                    out.flush();
+
+     */
