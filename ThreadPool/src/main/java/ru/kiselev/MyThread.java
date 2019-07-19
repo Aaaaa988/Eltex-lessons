@@ -6,7 +6,7 @@ public class MyThread implements Runnable {
     {
         //System.out.println("Thread-" + num);
         for(int i = 1; i<=3; i++){
-            System.out.println("Thread-" + num +" "+ i);
+            System.out.println("Поток:"+Thread.currentThread().getName()+"  номер в конструкторе:" +num +" "+ " итерация цикла в потоке:"+ i);
         }
     }
 
