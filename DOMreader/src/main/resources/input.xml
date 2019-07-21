@@ -1,0 +1,11 @@
+<msgs>
+    <msg to="Boris" from="Ivan" title="Hello">
+        Привет
+    </msg>
+    <msg to="Ivan" from="Maria" title="What are you doing?">
+        Как твои дела?
+    </msg>
+    <msg to="User" from="Vova" title="It's Alive!!!">
+        Оно работает!!
+    </msg>
+</msgs>
