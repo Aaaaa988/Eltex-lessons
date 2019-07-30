@@ -1,4 +1,4 @@
-package ru.kiselev;
+/*package ru.kiselev;
 import java.util.Scanner;
 
 public class Main {
@@ -51,4 +51,56 @@ public class Main {
 
         System.out.println("Result = " + result);
     }
+}*/
+
+package ru.kiselev;
+
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args){
+        System.out.println("blyat");
+        File dir_proc = new File("/proc/");
+        String[] dirs_name = dir_proc.list();
+        System.out.println("PID  ||  Name_of_proccess");
+        System.out.println("-------------------------");
+        for(String i: dirs_name) {
+
+            File file = new File("./proc/" + i + "/stat");
+
+            if(file.exists()) {
+                try {
+                    FileReader reader = new FileReader(file);
+                    int b;
+                    boolean skip = true;
+                    System.out.print(i + " || ");
+                    while((b = reader.read()) != 41 ) {
+                        if(b == 40) {skip = false; continue;}
+                        if(skip) continue;
+                        System.out.print((char) b);
+                    }
+                    System.out.println();
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }
+
+        Scanner in = new Scanner(System.in);
+        String Request = in.nextLine();
+
+
+/*
+        Path target = Paths.get("./proc");
+        Files.delete(target);
+        */
+
+    }
+
 }
+
