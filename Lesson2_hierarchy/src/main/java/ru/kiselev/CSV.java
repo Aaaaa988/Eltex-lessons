@@ -16,7 +16,7 @@ public interface CSV {
                 if (i.getClass().toString().equals("class ru.kiselev.Developer")) {
                     writer.write(i.name + " ; " + i.phone + " ; " + i.id + " ; " + ((Developer)i).getProg_langs() + "\n");
                 } else {
-                    writer.write(i.name + " ; " + i.phone + " ; " + i.id + " ; " + ((Manager)i).getProduct() + "\n");
+                   writer.write(i.name + " ; " + i.phone + " ; " + i.id + " ; " + ((Manager)i).ProductString() + "\n");
                 }
             }
             writer.flush();
