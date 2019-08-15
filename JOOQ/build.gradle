@@ -1,0 +1,69 @@
+plugins {
+    id 'nu.studer.jooq' version '3.0.3'
+    id 'java'
+    id 'application'
+
+}
+
+    mainClassName = "ru.kiselev.JOOQ"
+
+    group 'Lesson'
+    version '1.0-SNAPSHOT'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += [ "--release", "8" ]
+}
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+
+        compile 'org.jooq:jooq'
+        compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.17'
+        jooqRuntime 'mysql:mysql-connector-java:+'
+
+    }
+
+jooq {
+    Properties properties = new Properties()
+    properties.load(project.file("src/main/resources/db.properties").newDataInputStream())
+    version = "3.11.11"
+    sample(sourceSets.main) {
+        jdbc {
+            driver = "com.mysql.jdbc.Driver"
+            url = properties.getProperty("db.host")
+            user = properties.getProperty("db.login")
+            password = properties.getProperty("db.password")
+        }
+        generator {
+            name = "org.jooq.codegen.DefaultGenerator"
+            database {
+                name = "org.jooq.meta.mysql.MySQLDatabase"
+                inputSchema = "BaseUsers"
+                outputSchemaToDefault = true
+            }
+            generate {
+                relations = true
+                deprecated = false
+                records = true
+                immutablePojos = true
+                indexes = false
+                relations = false
+
+                globalObjectReferences = false
+                globalCatalogReferences = false
+                globalSchemaReferences = false
+            }
+            target {
+                packageName = "ru.eltex.database"
+                directory = "src/main/java"
+            }
+        }
+    }
+}
