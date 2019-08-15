@@ -12,7 +12,6 @@ public class Server {
 
             try (ServerSocket s = new ServerSocket(1050, 0, InetAddress.getByName("0.0.0.0"))) {
                 while(true) {
-
                     Socket client = s.accept();
 
                     Runnable r = new Thread_Client(client);

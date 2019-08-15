@@ -3,81 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Server</title>
-    <style>
-        #rectangle1 {
-            width: 220px;
-            height: 120px;
-            background: #4da1f7;
-        }
-        #rectangle2 {
-            width: 220px;
-            height: 120px;
-            background: #2FF1a7;
-        }
-        #oval1 {
-            margin-bottom: 270px;
-            width: 100px;
-            height: 100px;
-            background: #0000FF;
-            -webkit-border-radius: 100px / 100px;
-            -moz-border-radius: 100px / 100px;
-            border-radius: 100px / 100px;
-        }
-        #oval2 {
-            position:relative;
-            margin-up: -270px;
-            margin-right: 380px;
-            width: 100px;
-            height: 100px;
-            background: #0000FF;
-            -webkit-border-radius: 100px / 100px;
-            -moz-border-radius: 100px / 100px;
-            border-radius: 100px / 100px;
-        }
-        #oval3 {
-            position:relative;
-            margin-left: 380px;
-            margin-top: -95px;
-            width: 100px;
-            height: 100px;
-            background: #0000FF;
-            -webkit-border-radius: 100px / 100px;
-            -moz-border-radius: 100px / 100px;
-            border-radius: 100px / 100px;
-        }
-    </style>
 </head>
+<style>
+    .block1{
+        border: 50px solid #330686;
+        vertical-align: middle;
+    }
+    #block2{
+        font-family: "Roboto Light", "Arial";
+        margin-left: 50px;
+        padding: 16px;
+
+    }
+    .Text{
+        font-family: "Noto Sans CJK JP Bold";
+        font-style: italic;
+        font-size: 30px;
+        color: chartreuse;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $(".block1").html("Ready");
+        $("#block2").click(function (event) {
+            alert("Test");
+        });
+    });
+    function getText(event) {
+        alert("Вы изменили текст:" + $("#fio").val()); //нужен Jquery
+    }
+</script>
 <body>
-<br><br>
-<center>
-    <div id="oval1"></div><div id="oval2"></div><div id="oval3"></div>
-    <hr style="position:relative;
-        margin-top: -380px;
-        margin-left: 390px;
-        top:100px;
-        border:20px solid blue;
-            width:350px;
-            height:0px;
-        transform: rotate(-62deg);">
-    <hr style="position:relative;
-        margin-top: -10px;
-        margin-left: 590px;
-        top:100px;
-        border:20px solid blue;
-            width:350px;
-            height:0px;
-        transform: rotate(62deg);">
-    <hr style="position:relative;
-        margin-top: 120px;
-        margin-left: 500px;
-        top:100px;
-        border:20px solid blue;
-            width:350px;
-            height:0px;
-        transform: rotate(0deg);">
-</center>
-    <h1>Hello...</h1>
-    <h5>yes, i am designer</h5>
+    <p style = "font-size: 12px; color :#330686">
+        Amazing Text
+    </p>
+    <div class = "block1" style = "height: 350px; width: 350px; background-color: #6639A9;">
+        <center>
+        <button style = "margin-top: 150px">Submit</button>
+        <br>
+        <font class="Text">Press Button</font>
+        </center>
+    </div>
+    <span id = "block2">
+        <form action="action.html" method="get">
+            <label>Ф.И.О.</label>
+            <input id = "fio" value="ФИО Пиши тут" type="text"  onchange="getText()" />
+            <br>
+            <br>
+            <input type="password"/>
+            <input type="submit" value="send"/>
+        </form>
+    </span>
 
 </body>
 </html>
