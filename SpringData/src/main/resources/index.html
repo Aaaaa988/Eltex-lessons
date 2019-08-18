@@ -1,0 +1,84 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .field {
+        text-align:center;
+
+        color: black;
+        font-size: 9pt;
+    }
+    .user{
+        font-size: 15px;
+        font-family: "Noto Sans";
+    }
+    .font{
+        font-family: "Noto Sans";
+    }
+    .col-md-6 > div{
+        font-family: "Noto Sans";
+    }
+    .row > div {
+        background: #a1e69e;
+        border: 2px solid grey;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.get("/get_users",
+            function(data){
+                $(".users").html("<br>");
+                var str = "";
+                for(var i = 0; i < data.length; i++) {
+                    console.log(data[i]);
+                    str += data[i].id + "." + data[i].fio + "<br>";
+                }
+                $(".users").html(str);
+            }
+        );
+    });
+    function info(event) {
+        $.get("/get_user/" + document.getElementById("id").value,
+            function(data){
+                var str = ""
+                console.log(data);
+                str += data.phone+ "   " + data.fio + "<br>";
+                if (data.phone == null) str = ""
+                $(".user").html(str);
+            }
+        );
+    }
+</script>
+<body>
+<br><br><br>
+<div  class="container">
+    <div class="row" >
+
+        <div class="col-md-6">
+            Users Base
+            <br>
+            <br>
+            <div class="users"></div>
+        </div>
+        <div class="col-md-6">
+            <center class="font">Search by ID</center>
+            <div class="field">
+                <input id="id" class="field" type = "text"/>
+                <button style="padding: 3px 40px; border-radius: 12px; font-family: 'Noto Sans';"  type="button" class="btn btn-outline-dark" onclick="info()">find</button>
+                <br>
+                <br>
+                <div class="user"> </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

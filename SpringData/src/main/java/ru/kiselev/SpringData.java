@@ -6,12 +6,16 @@ import org.apache.log4j.Logger;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.*;
 
 @SpringBootApplication
 public class SpringData {
     private User user1;
     private User user2;
+    private User user3;
     private Call call1;
     private Call call2;
     private static final Logger log = Logger.getLogger(SpringData.class);
@@ -28,8 +32,10 @@ public class SpringData {
         return (args) -> {
             user1 = new User( "Ivanov Ivan Ivanovich", "+79234563452");
             user2 = new User("Petrov Gena Arkadich", "+79453265476");
+            user3 = new User("Pychkov Misha Hahahicsh", "+74356265476");
             CrudRepository.save(user1);
             CrudRepository.save(user2);
+            CrudRepository.save(user3);
         };
     }
     @Bean
@@ -61,4 +67,19 @@ public class SpringData {
             System.out.println();
         };
     }
+
+    @Bean
+    public CommandLineRunner Server(UserRepository CrudRepository) {
+        return (args) -> {
+            ServerSocket server = new ServerSocket(1050);
+            while (true) {
+                Socket client = server.accept();
+
+                Runnable r = new ThreadClient(client, CrudRepository);
+                Thread t = new Thread(r);
+                t.start();
+            }
+        };
+    }
+
 }
