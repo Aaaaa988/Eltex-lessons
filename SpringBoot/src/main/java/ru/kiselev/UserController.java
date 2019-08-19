@@ -18,7 +18,7 @@ public class UserController {
 
     @Autowired
     public void init_users(){
-        users.add(new User(1, "Ivan Ivanon", "+79235648673"));
+        users.add(new User(1, "Ivan Ivanov", "+79235648673"));
         users.add(new User(2, "Petya Petrovich", "+79543748537"));
         users.add(new User(3, "Gena Na", "+78007548548"));
     }
